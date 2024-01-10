@@ -1,10 +1,13 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 #include<vector>
 #include<utility>
 #include<fstream>
 #include<map>
 #include<set>
+#include <io.h>
+#include <fcntl.h>
+#include <codecvt>
 using namespace std;
 
 double count(string str, int& i) {
@@ -36,16 +39,9 @@ double count(string str, int& i) {
 }
 
 int main() {
-
-	string formula = "Y(UO2)3(SO4)2O(OH)3(H2O)7·7H2O";
-	
 	vector<pair<string, double>> vec;
-	int counter = 0;
-	int vec_pointer = 0;
 	string element;
 	double element_count;
-	map<string, double> sums;
-
 
 	fstream mase;
 	mase.open("files/elementi_mase.txt", ios::in);
@@ -61,10 +57,22 @@ int main() {
 	}
 	mase.close();
 
+	fstream input;
+	fstream output;
+	input.open("files/input.txt", ios::in);
+	output.open("files/output.txt", ios::out);
 
+	string focus;
+	cout << "Element to filter: ";
+	cin >> focus;
+
+	bool skip = false;
 	while (1) {
-
+		string formula;
 		vec.clear();
+		if (!getline(input, formula)) {
+			break;
+		}
 
 		for (int i = 0; i < formula.length();) {
 			char c = formula[i];
@@ -94,24 +102,55 @@ int main() {
 				vec.erase(vec.begin() + counter);
 			}
 
-			else if (c == '·') {
+			else if (c == 'Â·') {
 				i++;
 				element_count = count(formula, i);
 				vec.push_back({ "H", element_count * 2 });
 				vec.push_back({ "O", element_count });
 				break;
 			}
+
+			else if (c==',' || c == '?' || c == 'x' || (c == 'n' && !(formula[i - 1] >= 'A' && formula[i - 1] <= 'Z'))) {
+				output << "error" << endl;
+				skip = true;
+				break;
+			}
+
 			else {
-				cout << "kvadratic" << endl;
-				continue;
+				i++;
+				/*
+				if (i == 0) {
+					formula[i] = '*';
+					i++;
+				}
+				else if (formula[i - 1] != '*') {
+					formula[i] = '*';
+					i++;
+				}
+				else {
+					if (i > 1)
+						formula.erase(i, i - 2);
+					else
+						formula.erase(i, i);
+				}
+				*/
 			}
 		}
 
+		if (skip) {
+			skip = false;
+			continue;
+		}
+		
+		/*
 		for (int i = 0; i < vec.size(); i++)
-			cout << vec[i].first << " " << vec[i].second << endl;
-
+			cout << vec[i].first << " " << vec[i].second << "\t";
+		cout << endl;
+		*/
+		
 
 		set<string> exists;
+		map<string, double> sums;
 		double sum = 0;
 
 		for (int i = 0; i < vec.size(); i++) {
@@ -123,25 +162,62 @@ int main() {
 			}
 		}
 
+		/*
 		cout << endl;
 		for (auto a : sums) {
 			cout << a.first << "\t" << sums[a.first] << endl;
 		}
+		cout << endl;
+		*/
+
 
 		for (auto a : sums) {
 			sums[a.first] *= mass[a.first];
 			sum += sums[a.first];
 		}
 
-		cout << endl << endl << formula << endl;
+		//cout << endl << endl << formula << endl;
+
+		/*
+		for (int i = 0; i < formula.size(); i++) {
+			if (formula[i] == '*') {
+				_setmode(_fileno(stdout), _O_U16TEXT);
+				if (formula[i + 1] == 'Â·') {
+					output << L"\u00B7";
+					i++;
+				}
+				else
+					output << L"\u25a1";
+				_setmode(_fileno(stdout), _O_TEXT);
+			}
+			else
+				output << formula[i];
+		}
+		cout << endl;
+		*/
+
+		bool focus_active=false;
 		for (auto a : sums) {
 			sums[a.first] /= sum;
-			cout << a.first << "\t" << sums[a.first] * 100 << " %" << endl;
+			if (focus != "skip" && a.first == focus) {
+				output << sums[a.first] * 100 << "\t";
+				//cout << sums[a.first] << endl;
+				focus_active = true;
+			}
 		}
-		cout << endl << endl;
+		if (!focus_active && focus != "skip")
+			output << "nema";
 
-		break;
+		for (auto a : sums) {
+			if (focus_active && a.first == focus)
+				continue;
+			output << a.first << " " << sums[a.first] * 100 << " %\t";
+		}
+		output << endl;
 	}
+	cout << endl << "Go to 'files' map open output.txt copy into Excel" << endl;
+	input.close();
+	output.close();
 
 	return 0;
 }
