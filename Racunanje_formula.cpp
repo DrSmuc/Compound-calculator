@@ -62,8 +62,15 @@ int main() {
 	input.open("files/input.txt", ios::in);
 	output.open("files/output.txt", ios::out);
 
+	cout << "Go to project directory -> 'files' -> input.txt write formulas" << endl << endl;
+	cout << "Not good:\n' - ' in subscript!\n' ";
+	_setmode(_fileno(stdout), _O_U16TEXT);
+	wcout << L"\u00B7";
+	_setmode(_fileno(stdout), _O_TEXT);
+	cout << " x H2O' not at the end! (x represent number)" << endl << endl;
+
 	string focus;
-	cout << "Element to filter: ";
+	cout << "Element to filter (or 'skip'): ";
 	cin >> focus;
 
 	bool skip = false;
@@ -80,7 +87,7 @@ int main() {
 				element = c;
 				char c2 = formula[i + 1];
 				i++;
-				if (c2 >= 'a' && c2 <= 'z' && i + 1 < formula.length()) {
+				if (c2 >= 'a' && c2 <= 'z' && i + 1 <= formula.length()) {
 					element += c2;
 					i++;
 				}
@@ -165,7 +172,7 @@ int main() {
 		/*
 		cout << endl;
 		for (auto a : sums) {
-			cout << a.first << "\t" << sums[a.first] << endl;
+			//cout << a.first << "\t" << sums[a.first] << endl;
 		}
 		cout << endl;
 		*/
