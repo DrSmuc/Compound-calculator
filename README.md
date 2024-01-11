@@ -11,11 +11,11 @@ K(UO2)(AsO4)·3H2O<br>
 Sn2+21O6(OH)14Cl16<br>
 .<br>
 .<br>
-.
+.<br>
 
 Output:<br>
  - 'files' -> output.txt<br>
- - copy contents into Excel document
+ - copy contents into Excel document<br>
 
 Fileter specific element:<br>
  - if chosen, that element will appear in the first collumn if it exists in firmula<br>
@@ -24,4 +24,4 @@ Fileter specific element:<br>
  
 ### Incorect result if:<br>
  1. "-" in subscript<br>
- 2. "·xH2O" is not et the end<br>
+ 2. "·xH2O" is not et the end or something other than H2O
