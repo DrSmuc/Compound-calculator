@@ -1,5 +1,5 @@
 # compound-calculator
- ## Calculates the percentage of elements in the compound
+ Calculates the percentage of elements in the compound
 
 Input data:
  Go to project directory -> 'files' -> input.txt write formulas.
