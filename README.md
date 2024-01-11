@@ -5,9 +5,9 @@
  Go to project directory -> 'files' -> input.txt write formulas.
 
 ### Example:
-NaPb2(CO3)2(OH)
-NiC31H32N4
-K(UO2)(AsO4)·3H2O
+NaPb2(CO3)2(OH) 
+NiC31H32N4 
+K(UO2)(AsO4)·3H2O 
 Sn2+21O6(OH)14Cl16
 .
 .
