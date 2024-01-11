@@ -5,10 +5,16 @@
 #include<fstream>
 #include<map>
 #include<set>
-#include <io.h>
-#include <fcntl.h>
-#include <codecvt>
+#include<iomanip>
+#include<locale>
 using namespace std;
+
+class CommaDecimalSeparator : public std::numpunct<char> {
+protected:
+	char do_decimal_point() const override {
+		return ',';
+	}
+};
 
 double count(string str, int& i) {
 	double count = 0;
@@ -61,16 +67,12 @@ int main() {
 	fstream output;
 	input.open("files/input.txt", ios::in);
 	output.open("files/output.txt", ios::out);
+	output.imbue(std::locale(output.getloc(), new CommaDecimalSeparator));
 
-	cout << "Go to project directory -> 'files' -> input.txt write formulas" << endl << endl;
-	cout << "Not good:\n' - ' in subscript!\n' ";
-	_setmode(_fileno(stdout), _O_U16TEXT);
-	wcout << L"\u00B7";
-	_setmode(_fileno(stdout), _O_TEXT);
-	cout << " x H2O' not at the end! (x represent number)" << endl << endl;
+	cout << "Write formulas in 'files' -> input.txt" << endl << endl;
 
 	string focus;
-	cout << "Element to filter (or 'skip'): ";
+	cout << "Enter element to filter (or 'skip'): ";
 	cin >> focus;
 
 	bool skip = false;
@@ -122,26 +124,8 @@ int main() {
 				skip = true;
 				break;
 			}
-
-			else {
+			else
 				i++;
-				/*
-				if (i == 0) {
-					formula[i] = '*';
-					i++;
-				}
-				else if (formula[i - 1] != '*') {
-					formula[i] = '*';
-					i++;
-				}
-				else {
-					if (i > 1)
-						formula.erase(i, i - 2);
-					else
-						formula.erase(i, i);
-				}
-				*/
-			}
 		}
 
 		if (skip) {
@@ -155,7 +139,6 @@ int main() {
 		cout << endl;
 		*/
 		
-
 		set<string> exists;
 		map<string, double> sums;
 		double sum = 0;
@@ -177,52 +160,31 @@ int main() {
 		cout << endl;
 		*/
 
-
 		for (auto a : sums) {
 			sums[a.first] *= mass[a.first];
 			sum += sums[a.first];
 		}
 
-		//cout << endl << endl << formula << endl;
-
-		/*
-		for (int i = 0; i < formula.size(); i++) {
-			if (formula[i] == '*') {
-				_setmode(_fileno(stdout), _O_U16TEXT);
-				if (formula[i + 1] == '·') {
-					output << L"\u00B7";
-					i++;
-				}
-				else
-					output << L"\u25a1";
-				_setmode(_fileno(stdout), _O_TEXT);
-			}
-			else
-				output << formula[i];
-		}
-		cout << endl;
-		*/
-
 		bool focus_active=false;
 		for (auto a : sums) {
-			sums[a.first] /= sum;
+			sums[a.first] = sums[a.first] * 100 / sum;
 			if (focus != "skip" && a.first == focus) {
-				output << sums[a.first] * 100 << "\t";
+				output << fixed << setprecision(6) << sums[a.first] << "\t";
 				//cout << sums[a.first] << endl;
 				focus_active = true;
 			}
 		}
 		if (!focus_active && focus != "skip")
-			output << "nema";
+			output << " - " << "\t";
 
 		for (auto a : sums) {
 			if (focus_active && a.first == focus)
 				continue;
-			output << a.first << " " << sums[a.first] * 100 << " %\t";
+			output << fixed << setprecision(6) << a.first << " " << sums[a.first] << " %\t";
 		}
 		output << endl;
 	}
-	cout << endl << "Go to 'files' map open output.txt copy into Excel" << endl;
+	cout << endl << "Go to 'files' -> output.txt, copy contents into Excel" << endl;
 	input.close();
 	output.close();
 
