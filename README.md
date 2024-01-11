@@ -2,7 +2,7 @@
  Calculates the percentage of elements in the compound
 
 Input data:<br>
- - Go to project directory -> 'files' -> input.txt write formulas.<br>
+ - map "files" -> input.txt write formulas.<br>
 
 Example:<br>
 NaPb2(CO3)2(OH)<br>
@@ -14,7 +14,7 @@ Sn2+21O6(OH)14Cl16<br>
 .<br>
 
 Output:<br>
- - 'files' -> output.txt<br>
+ - "files" -> output.txt<br>
  - copy contents into Excel document<br>
 
 Fileter specific element:<br>
