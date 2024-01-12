@@ -29,7 +29,7 @@ double count(string str, int& i) {
 			else
 				count = count * 10 + c - '0';
 		}
-		else if (c == '+' || c == '-') {
+		else if (c == '+') {
 			decimal = false;
 			count = 0;
 		}
@@ -119,7 +119,7 @@ int main() {
 				break;
 			}
 
-			else if (c==',' || c == '?' || c == 'x' || (c == 'n' && !(formula[i - 1] >= 'A' && formula[i - 1] <= 'Z'))) {
+			else if (c=='-' || c == ',' || c == '?' || c == 'x' || (c == 'n' && !(formula[i - 1] >= 'A' && formula[i - 1] <= 'Z'))) {
 				output << "error" << endl;
 				skip = true;
 				break;
