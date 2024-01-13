@@ -21,6 +21,12 @@ Fileter specific element:<br>
  - if chosen, that element will appear in the first collumn if it exists in firmula<br>
  - simbol of the element and "%" won't be displayed<br>
  - **"skip"** to not use feature<br>
- 
+
+Excludes undefined formulas:<br>
+ - (NH<sub>4</sub>,K,Pb**,**Na)<sub>9</sub>Fe<sup>2+</sup><sub>4</sub>(SO<sub>4</sub>)5C<sub>18</sub><br>
+ - Al<sub>2</sub>O<sub>3</sub>(SiO<sub>2</sub>)**1.3-2.0**·**2.5-3.0**H<sub>2</sub>O<br>
+ - SiO<sub>2</sub>·**n**C<sub>**x**</sub>H<sub>**2x+2**</sub><br>
+ - (Pb,**REE**,Ca)Cu<sub>6</sub>(AsO<sub>4</sub>)<sub>3</sub>(OH)<sub>6</sub>·3H<sub>2</sub>O
+
 ### Incorect result if:<br>
-1. "·xH2O" is not et the end or something other than H2O
+ - "·xH2O" is not et the end or anything other than H2O<br>
