@@ -89,6 +89,11 @@ int main() {
 				element = c;
 				char c2 = formula[i + 1];
 				i++;
+				if (c == 'R' && c2 == 'E' && i + 1 <= formula.length()) {
+					output << "error" << endl;
+					skip = true;
+					break;
+				}
 				if (c2 >= 'a' && c2 <= 'z' && i + 1 <= formula.length()) {
 					element += c2;
 					i++;
@@ -169,7 +174,7 @@ int main() {
 		for (auto a : sums) {
 			sums[a.first] = sums[a.first] * 100 / sum;
 			if (focus != "skip" && a.first == focus) {
-				output << fixed << setprecision(6) << sums[a.first] << "\t";
+				output << fixed << setprecision(2) << sums[a.first] << "\t";
 				//cout << sums[a.first] << endl;
 				focus_active = true;
 			}
@@ -180,7 +185,7 @@ int main() {
 		for (auto a : sums) {
 			if (focus_active && a.first == focus)
 				continue;
-			output << fixed << setprecision(6) << a.first << " " << sums[a.first] << " %\t";
+			output << fixed << setprecision(2) << a.first << " " << sums[a.first] << "\t";
 		}
 		output << endl;
 	}
