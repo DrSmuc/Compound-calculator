@@ -1,4 +1,4 @@
-# compound-calculator
+# Compound-calculator
  Calculates the percentage of elements in the compound
 
 Input data:<br>
