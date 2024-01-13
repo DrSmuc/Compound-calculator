@@ -18,8 +18,7 @@ Output:<br>
  - copy contents into Excel document<br>
 
 Fileter specific element:<br>
- - if chosen, that element will appear in the first collumn if it exists in firmula<br>
- - simbol of the element and "%" won't be displayed<br>
+ - if chosen, that element will appear in the first collumn if it exists in firmula, symbol won't be displayed<br>
  - **"skip"** to not use feature<br>
 
 Excludes undefined formulas:<br>
