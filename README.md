@@ -23,5 +23,4 @@ Fileter specific element:<br>
  - **"skip"** to not use feature<br>
  
 ### Incorect result if:<br>
- 1. "-" in subscript<br>
- 2. "·xH2O" is not et the end or something other than H2O
+1. "·xH2O" is not et the end or something other than H2O
